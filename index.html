@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily WOS</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Layar Login Minimalis -->
+<div id="loginOverlay" class="login-overlay">
+  <div class="login-simple">
+    <input type="password" id="appPassword" placeholder="Masukkan Kata Sandi" onkeydown="checkPasswordKey(event)" autofocus>
+    <button type="button" onclick="validatePassword()">Masuk</button>
+    <p id="loginError" class="error-msg"></p>
+  </div>
+</div>
+
+<div class="main-wrapper">
+  <div class="form-card">
+    <div class="card-header">
+      <h2>Daily WOS</h2>
+      <p>Input Laporan Harian WOS</p>
+    </div>
+
+    <form id="eventForm">
+      
+      <!-- Section: Akun & Informasi Utama -->
+      <div class="form-section">
+        <div class="section-title">Akun</div>
+        
+        <div class="row-2">
+          <div class="form-group">
+            <label for="sheetTarget">Target Sheet</label>
+            <select id="sheetTarget">
+              <option value="FAME KHAIRI" selected>FAME KHAIRI</option>
+              <option value="FAME YEPE">FAME YEPE</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="tanggalUpload">Tanggal Upload</label>
+            <input type="date" id="tanggalUpload" required>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Harian -->
+      <div class="form-section">
+        <div class="section-title">Harian</div>
+        
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="intel">Intel</label>
+            <input type="text" id="intel" inputmode="numeric" pattern="[0-9]*" placeholder="0" oninput="formatInputRibuan(this)">
+          </div>
+          <div class="form-group">
+            <label for="arena">Arena</label>
+            <input type="text" id="arena" inputmode="numeric" pattern="[0-9]*" placeholder="0" oninput="formatInputRibuan(this)">
+          </div>
+
+          <!-- Teror Kutub Breakdown -->
+          <div class="form-group">
+            <label for="terorKutubPolar">Teror Kutub (Polar)</label>
+            <input type="text" id="terorKutubPolar" inputmode="numeric" pattern="[0-9]*" placeholder="0" oninput="formatInputRibuan(this)">
+          </div>
+          <div class="form-group">
+            <label for="terorKutubReaper">Teror Kutub (Reaper)</label>
+            <input type="text" id="terorKutubReaper" inputmode="numeric" pattern="[0-9]*" placeholder="0" oninput="formatInputRibuan(this)">
+          </div>
+          <div class="form-group">
+            <label for="joinTerorKutub">Jumlah Join Polar</label>
+            <input type="text" id="joinTerorKutub" inputmode="numeric" pattern="[0-9]*" placeholder="0" oninput="formatInputRibuan(this)">
+          </div>
+
+          <!-- Dawn Academy Breakdown -->
+          <div class="form-group">
+            <label for="dawnAcademyTas">Dawn Academy (Tas)</label>
+            <input type="text" id="dawnAcademyTas" inputmode="numeric" pattern="[0-9]*" placeholder="0" oninput="formatInputRibuan(this)">
+          </div>
+          <div class="form-group">
+            <label for="dawnAcademySigil">Dawn Academy (Sigil)</label>
+            <input type="text" id="dawnAcademySigil" inputmode="numeric" pattern="[0-9]*" placeholder="0" oninput="formatInputRibuan(this)">
+          </div>
+          <div class="form-group">
+            <label for="dawnAcademyBuku">Dawn Academy (Buku)</label>
+            <input type="text" id="dawnAcademyBuku" inputmode="numeric" pattern="[0-9]*" placeholder="0" oninput="formatInputRibuan(this)">
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Benteng -->
+      <div class="form-section">
+        <div class="section-title">Benteng</div>
+        
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="bentengFort">Fort</label>
+            <input type="text" id="bentengFort" inputmode="numeric" pattern="[0-9]*" placeholder="0" oninput="formatInputRibuan(this)">
+          </div>
+          <div class="form-group">
+            <label for="bentengSH">SH</label>
+            <input type="text" id="bentengSH" inputmode="numeric" pattern="[0-9]*" placeholder="0" oninput="formatInputRibuan(this)">
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Event Lainnya -->
+      <div class="form-section">
+        <div class="section-title">Event Lainnya</div>
+        
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="bearTrap">Bear Trap</label>
+            <input type="text" id="bearTrap" inputmode="numeric" pattern="[0-9]*" placeholder="0" oninput="formatInputRibuan(this)">
+          </div>
+          <div class="form-group">
+            <label for="frostFire">Frostfire</label>
+            <input type="text" id="frostFire" inputmode="numeric" pattern="[0-9]*" placeholder="0" oninput="formatInputRibuan(this)">
+          </div>
+          <div class="form-group">
+            <label for="fishing">Fishing</label>
+            <input type="text" id="fishing" inputmode="numeric" pattern="[0-9]*" placeholder="0" oninput="formatInputRibuan(this)">
+          </div>
+          <div class="form-group">
+            <label for="snowbuster">Snowbuster</label>
+            <input type="text" id="snowbuster" inputmode="numeric" pattern="[0-9]*" placeholder="0" oninput="formatInputRibuan(this)">
+          </div>
+          <div class="form-group">
+            <label for="allianceMobilization">Alliance Mobilization</label>
+            <input type="text" id="allianceMobilization" inputmode="numeric" pattern="[0-9]*" placeholder="0" oninput="formatInputRibuan(this)">
+          </div>
+          <div class="form-group">
+            <label for="mercenaryPrestige">Mercenary Prestige</label>
+            <input type="text" id="mercenaryPrestige" inputmode="numeric" pattern="[0-9]*" placeholder="0" oninput="formatInputRibuan(this)">
+          </div>
+          <div class="form-group">
+            <label for="esSerut">Es Serut</label>
+            <input type="text" id="esSerut" inputmode="numeric" pattern="[0-9]*" placeholder="0" oninput="formatInputRibuan(this)">
+          </div>
+          <div class="form-group">
+            <label for="crazyJoe">Crazy Joe</label>
+            <input type="text" id="crazyJoe" inputmode="numeric" pattern="[0-9]*" placeholder="0" oninput="formatInputRibuan(this)">
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Event Battle -->
+      <div class="form-section highlight-section">
+        <div class="section-title">Event Battle</div>
+
+        <!-- SVS Group -->
+        <div class="sub-label">State vs State (SVS) - Prep Phase</div>
+        <div class="row-2 mb-3">
+          <div class="form-group">
+            <label for="svsPrepPoint">SVS Prep Point</label>
+            <input type="text" id="svsPrepPoint" inputmode="numeric" pattern="[0-9]*" placeholder="0" oninput="formatInputRibuan(this)">
+          </div>
+          <div class="form-group">
+            <label for="svsPrepRank">SVS Prep Rank</label>
+            <input type="text" id="svsPrepRank" inputmode="numeric" pattern="[0-9]*" placeholder="0">
+          </div>
+        </div>
+
+        <div class="sub-label">State vs State (SVS) - Battle Phase</div>
+        <div class="row-2 mb-3">
+          <div class="form-group">
+            <label for="svsBattlePoint">SVS Battle Point</label>
+            <input type="text" id="svsBattlePoint" inputmode="numeric" pattern="[0-9]*" placeholder="0" oninput="formatInputRibuan(this)">
+          </div>
+          <div class="form-group">
+            <label for="svsBattleRank">SVS Battle Rank</label>
+            <input type="text" id="svsBattleRank" inputmode="numeric" pattern="[0-9]*" placeholder="0">
+          </div>
+        </div>
+
+        <!-- SFC Group -->
+        <div class="sub-label">Sunfire Castle (SFC)</div>
+        <div class="row-2 mb-3">
+          <div class="form-group">
+            <label for="sfcPoint">SFC Point</label>
+            <input type="text" id="sfcPoint" inputmode="numeric" pattern="[0-9]*" placeholder="0" oninput="formatInputRibuan(this)">
+          </div>
+          <div class="form-group">
+            <label for="sfcRank">SFC Rank</label>
+            <input type="text" id="sfcRank" inputmode="numeric" pattern="[0-9]*" placeholder="0">
+          </div>
+        </div>
+
+        <!-- Canyon Clash & Foundry Battle -->
+        <div class="sub-label">Battle Lainnya</div>
+        <div class="row-2">
+          <div class="form-group">
+            <label for="canyonClash">Canyon Clash</label>
+            <input type="text" id="canyonClash" inputmode="numeric" pattern="[0-9]*" placeholder="0" oninput="formatInputRibuan(this)">
+          </div>
+          <div class="form-group">
+            <label for="foundryBattle">Foundry Battle</label>
+            <input type="text" id="foundryBattle" inputmode="numeric" pattern="[0-9]*" placeholder="0" oninput="formatInputRibuan(this)">
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="btn-submit" onclick="submitData()">
+        <span>Simpan Data</span>
+      </button>
+
+    </form>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
